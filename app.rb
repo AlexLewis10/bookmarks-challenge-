@@ -18,12 +18,7 @@ class App < Sinatra::Base
   end
 
   post '/bookmarks/new' do
-    if ENV['ENVIRONMENT'] == 'test'
-      connection = PG.connect(dbname: 'bookmark_manager_test')
-    else
-      connection = PG.connect(dbname: 'bookmark_manager')
-    end
-    connection.exec("INSERT INTO bookmarks (url) VALUES('#{params[:url]}');")
+    Bookmark.create(params[:url])
     redirect '/bookmarks'
   end
 
