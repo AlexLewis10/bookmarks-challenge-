@@ -18,10 +18,9 @@ feature 'Adding Bookmarks' do
 
   scenario 'user adds https://www.youtube.com/, and wants to see all of the bookmarks' do
     #  prepare test db
-    connection = PG.connect(dbname: 'bookmark_manager_test')
-    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.twitter.com');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.destroyallsoftware.com');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.google.com');")
+    Bookmark.create('http://www.twitter.com')
+    Bookmark.create('http://www.destroyallsoftware.com')
+    Bookmark.create('http://www.google.com')
 
     visit('bookmarks/new')
     fill_in('url', with: 'https://www.youtube.com/')

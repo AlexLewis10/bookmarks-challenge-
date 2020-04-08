@@ -6,10 +6,9 @@ feature "see a list of bookmarks" do
 
   scenario "can see a url that is a bookmark" do
     # fill test database with test data
-    connection = PG.connect(dbname: 'bookmark_manager_test')
-    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.twitter.com');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.destroyallsoftware.com');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.google.com');")
+    Bookmark.create('http://www.twitter.com')
+    Bookmark.create('http://www.destroyallsoftware.com')
+    Bookmark.create('http://www.google.com')
 
     visit '/bookmarks'
 
