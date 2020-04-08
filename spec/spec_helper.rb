@@ -16,7 +16,7 @@ SimpleCov.start
 # For accurate test coverage measurements, require your code AFTER 'SimpleCov.start'
 
 RSpec.configure do |config|
-  config.before do
+  config.before(:each) do
     setup_test_database
   end
 end
