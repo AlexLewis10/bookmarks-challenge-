@@ -1,3 +1,7 @@
+ENV['ENVIRONMENT'] = 'test'
+
+require_relative 'setup_test_database'
+
 require 'capybara/rspec'
 require 'simplecov'
 require 'simplecov-console'
@@ -12,7 +16,8 @@ SimpleCov.start
 # For accurate test coverage measurements, require your code AFTER 'SimpleCov.start'
 
 RSpec.configure do |config|
-  config.after(:suite) do
+  config.before do
+    setup_test_database
   end
 end
 
