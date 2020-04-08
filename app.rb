@@ -1,5 +1,7 @@
 require 'sinatra/base'
 require './lib/bookmark'
+require 'pg'
+
 
 class App < Sinatra::Base
   get '/' do
@@ -16,7 +18,13 @@ class App < Sinatra::Base
   end
 
   post '/bookmarks/new' do
-    params[:url]
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'bookmark_manager_test')
+    else
+      connection = PG.connect(dbname: 'bookmark_manager')
+    end
+    connection.exec("INSERT INTO bookmarks (url) VALUES('#{params[:url]}');")
+    redirect '/bookmarks'
   end
 
 # start the server if ruby file executed directly
